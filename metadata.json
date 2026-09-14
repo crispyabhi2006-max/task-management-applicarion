@@ -1,0 +1,6 @@
+{
+  "name": "Task Management Application",
+  "description": "A full-stack task management application with React, Node.js, Express, MySQL database, JWT authentication, and real-time updates.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
