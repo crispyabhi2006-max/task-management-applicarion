@@ -28,26 +28,38 @@ async function startServer() {
   initSocketIO(httpServer);
   console.log('[BOOT] Socket.IO attached successfully.');
 
-  // 5. Mount Vite middleware for development or serve static files in production
+  // 5. Mount Vite middleware for development
+  //    or serve static files in production
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+      },
       appType: 'spa',
     });
+
     app.use(vite.middlewares);
+
     console.log('[BOOT] Vite dev middleware mounted.');
   } else {
-    const distPath = path.join(process.cwd(), 'dist');
+    const distPath = path.resolve(process.cwd(), 'dist');
+
+    console.log('[BOOT] Production dist path:', distPath);
+
     app.use(express.static(distPath));
+
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });
+
     console.log('[BOOT] Serving static production files from dist.');
   }
 
-  // 6. Listen on Port 3000
+  // 6. Listen on Render/local port
   httpServer.listen(PORT, '0.0.0.0', () => {
-    console.log(`[BOOT] Server running on http://0.0.0.0:${PORT}`);
+    console.log(
+      `[BOOT] Server running on http://0.0.0.0:${PORT}`
+    );
   });
 }
 
