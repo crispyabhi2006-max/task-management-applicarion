@@ -10,7 +10,7 @@ import { seedDemoData } from './server/config/seed.ts';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 async function startServer() {
   // 1. Initialize MySQL database & tables
